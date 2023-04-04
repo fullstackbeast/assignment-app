@@ -1,30 +1,40 @@
 import React, { useContext, useEffect, useState } from "react";
 import { StyleSheet, View, Text, TextInput, Pressable, Image } from "react-native";
 import { GlobalContext } from "../GlobalContext";
+import { USERS } from "../Data";
 
-export default function Login({navigation}) {
+export default function Login({ navigation }) {
 
-    const { currentUser, setCurrentUser } = useContext(GlobalContext);
+    const { setCurrentUser } = useContext(GlobalContext);
 
-    const [redirectUrl, setRedirectUrl] = useState('StudentDashboard');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
-    useEffect(()=>{
+    const handleLogin = () => {
 
-        if(currentUser.role == 'lecturer')
-        {
-            setRedirectUrl('LecturerDashboard')
+        let user = USERS.find(u => u.email.toLowerCase() == email.toLowerCase() && u.password.toLowerCase() == password.toLowerCase());
+
+
+        if (user) {
+            setCurrentUser(user);
+            if (user.role == 'lecturer') {
+                navigation.navigate('LecturerDashboard')
+            }
+            else if (user.role == 'student') {
+                navigation.navigate('StudentDashboard')
+            }
         }
-        else{
-            setRedirectUrl('StudentDashboard')
-        }
 
-    },[currentUser])
+
+
+
+    }
 
     return (
         <View style={styles.container}>
             <View style={styles.firstPart}>
                 <View style={[styles.logoContainer, styles.elevation]}>
-                    <Image source={require('../assets/icons/icon-done.png')}  style={{width:80, height: 90}}/>
+                    <Image source={require('../assets/icons/icon-done.png')} style={{ width: 80, height: 90 }} />
                 </View>
             </View>
             <View style={styles.secondPart}>
@@ -32,18 +42,19 @@ export default function Login({navigation}) {
                 <View>
                     <View style={{ marginVertical: 10 }}>
                         <Text style={{ fontSize: 16, fontWeight: '700' }}>Email Address</Text>
-                        <TextInput style={styles.inputElements} keyboardType="email-address" placeholder="Enter your email address" />
+                        <TextInput style={styles.inputElements} keyboardType="email-address"
+                            onChangeText={newText => setEmail(newText)} placeholder="Enter your email address" />
                     </View>
 
                     <View style={{ marginVertical: 10 }}>
                         <Text style={{ fontSize: 16, fontWeight: '700' }}>Password</Text>
-                        <TextInput style={styles.inputElements} secureTextEntry={true} placeholder="Enter your password" />
+                        <TextInput style={styles.inputElements} secureTextEntry={true} placeholder="Enter your password" onChangeText={newText => setPassword(newText)} />
                     </View>
 
-                    <Pressable style={{backgroundColor:'#2F85FE', alignItems:'center', padding: 10, borderRadius: 20, marginVertical:10}} onPress={() => navigation.navigate(redirectUrl)}>
+                    <Pressable style={{ backgroundColor: '#2F85FE', alignItems: 'center', padding: 10, borderRadius: 20, marginVertical: 10 }} onPress={handleLogin}>
 
-                        <Text style={{fontWeight:'500', color:'#fff'}}>Login</Text>
-                        
+                        <Text style={{ fontWeight: '500', color: '#fff' }}>Login</Text>
+
                     </Pressable>
                 </View>
 
@@ -66,7 +77,7 @@ const styles = StyleSheet.create({
         borderRadius: 300,
         marginBottom: -75,
         justifyContent: 'center',
-        alignItems:'center'
+        alignItems: 'center'
     },
     firstPart: {
         flex: 1,

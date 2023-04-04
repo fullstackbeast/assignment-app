@@ -8,18 +8,9 @@ export default function DashboardLayout({ navigation, pageTitle, children }) {
 
     const { currentUser, setCurrentUser } = useContext(GlobalContext);
 
-    // const [homeUrl, setHomeUrl] = useState('StudentDashboard');
-
-    // useEffect(() => {
-
-    //     if (currentUser.role == 'lecturer') {
-    //         setHomeUrl('LecturerDashboard')
-    //     }
-    //     else {
-    //         setHomeUrl('StudentDashboard')
-    //     }
-
-    // }, [currentUser])
+    const logOut = () => {
+        navigation.navigate('Login')
+    }
 
     return (
         <View style={{ flex: 1, backgroundColor: '#F3F4FA' }}>
@@ -27,9 +18,16 @@ export default function DashboardLayout({ navigation, pageTitle, children }) {
             <View style={styles.topBarContainer}>
                 <Text style={{ fontSize: 18, fontWeight: '600' }}>{pageTitle}</Text>
 
-                <View style={{ width: 50, height: 50, overflow: 'hidden', borderRadius: 5000 }}>
-                    <Image style={{ width: '80%', height: '80%' }} source={require('../assets/icons/girl-user.png')} />
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <View style={{ width: 50, height: 50, overflow: 'hidden', borderRadius: 5000 }}>
+                        <Image style={{ width: '80%', height: '80%' }} source={require('../assets/icons/girl-user.png')} />
+                    </View>
+
+                    <Pressable onPress={logOut}>
+                        <Text>Logout</Text>
+                    </Pressable>
                 </View>
+
             </View>
 
             <ScrollView style={{ flex: 1, padding: 10, marginVertical: 10 }}>
@@ -100,14 +98,7 @@ export default function DashboardLayout({ navigation, pageTitle, children }) {
                             <Text>All Assigments</Text>
                         </Pressable>
 
-                        <Pressable style={styles.navItems} onPress={() => navigation.navigate('Missed')}>
-                            <Font
-                                name='md-close-circle-outline'
-                                size={20}
-                                color='#000'
-                            />
-                            <Text>Missed</Text>
-                        </Pressable>
+
                     </View>
 
 

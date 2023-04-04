@@ -6,12 +6,13 @@ const GlobalProvider = ({ children }) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [modalChild, setModalChild] = useState(null);
-    const [currentUser, setCurrentUser] = useState({
-        id: 1,
-        firstName: "Toyyib",
-        lastName: "Omolola",
-        role: "lecturer"
-    });
+    // const [currentUser, setCurrentUser] = useState({
+    //     id: 1,
+    //     firstName: "Toyyib",
+    //     lastName: "Omolola",
+    //     role: "lecturer"
+    // });
+    const [currentUser, setCurrentUser] = useState(null);
 
 
     const values = {

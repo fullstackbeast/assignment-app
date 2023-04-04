@@ -1,60 +1,48 @@
 import { formatDistanceToNow } from 'date-fns';
 import React, { useState } from 'react'
-import { View, Text, FlatList } from 'react-native'
+import { View } from 'react-native'
 import DashboardLayout from '../layouts/DashboardLayout';
-import AssigmentItem from '../components/AssignmentItem';
-
+import SubmissionItem from '../components/SubmissionItem';
 
 export default function Submissions({navigation}) {
 
-    const [assignments, setAssignments] = useState([
+    const [submissions, setSubmissions] = useState([
         {
             id: 1,
-            title: "First Assignment",
-            description: "This is the first assignment",
-            courseId: 1,
-            courseName: "First Course",
-            courseLecturer: "First Lecturer",
-            dueDate: "April 4, 2023 8:00 AM",
-            dueDateSummary: formatDistanceToNow(
+            studentName: "Alake Abisola",
+            submissionDate: "April 4, 2023 8:00 AM",
+            submissionDateSummary: formatDistanceToNow(
+                new Date(2023, 3, 4),
+                { addSuffix: true }
+            )
+        },
+        {
+            id: 2,
+            studentName: "Odeyemi Idris",
+            submissionDate: "April 4, 2023 8:00 AM",
+            submissionDateSummary: formatDistanceToNow(
+                new Date(2023, 3, 4),
+                { addSuffix: true }
+            )
+        },
+        {
+            id: 3,
+            studentName: "Olaide Kolapo",
+            submissionDate: "April 4, 2023 8:00 AM",
+            submissionDateSummary: formatDistanceToNow(
                 new Date(2023, 3, 4),
                 { addSuffix: true }
             )
         },
 
-        {
-            id: 3,
-            title: "Second Assignment",
-            description: "This is the second assignment",
-            courseId: 1,
-            courseName: "Second Course",
-            courseLecturer: "Second Lecturer",
-            dueDate: "April 4, 2023 8:00 AM",
-            dueDateSummary: formatDistanceToNow(
-                new Date(2023, 3, 4),
-                { addSuffix: true }
-            )
-        },
-        {
-            id: 4,
-            title: "Third Assignment",
-            description: "This is the third assignment",
-            courseId: 2,
-            courseName: "Third Course",
-            courseLecturer: "Third Lecturer",
-            dueDate: "April 5, 2023 8:00 PM",
-            dueDateSummary: formatDistanceToNow(
-                new Date(2023, 3, 5),
-                { addSuffix: true }
-            )
-        },
+        
     ]);
 
     return (
         <DashboardLayout pageTitle="Assignment Submissions" navigation={navigation}>
             <View>
             <View>
-                {assignments.map(assignment =><AssigmentItem assignment={assignment} key={assignment.id} /> )}
+                {submissions.map(submission =><SubmissionItem submission={submission} key={submission.id} /> )}
             </View>
 
             </View>
