@@ -1,11 +1,12 @@
 import React, { useContext, useState } from 'react'
 import { View, Text, StyleSheet, Pressable } from 'react-native'
 import { GlobalContext } from '../GlobalContext';
+import { storeData } from '../AsyncStore';
 
 export default function AssigmentDetail({  assignment, navigation }) {
 
     const [isDocumentUploaded, setIsDocumentUploaded] = useState(false);
-    const { currentUser, setCurrentUser,setIsModalOpen } = useContext(GlobalContext);
+    const { currentUser, assignments, setAssignments ,setIsModalOpen } = useContext(GlobalContext);
 
 
     const handleSubmissionsReroute = () =>{
@@ -13,6 +14,15 @@ export default function AssigmentDetail({  assignment, navigation }) {
         setIsModalOpen(false);
         navigation.navigate('Submissions')
 
+    }
+
+    const deleteAssignment = () =>{
+        setAssignments(prevAss => {
+            const newState = prevAss.filter(p => p.id !== assignment.id)
+            storeData('assignment', newState)
+            return newState;
+        });
+        setIsModalOpen(false);
     }
 
     return (
@@ -75,7 +85,7 @@ export default function AssigmentDetail({  assignment, navigation }) {
 
             {currentUser.role == "lecturer" &&
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 30, gap: 20 }}>
-                    <Pressable style={[styles.button, { borderWidth: 1, borderColor: 'red' }]}>
+                    <Pressable style={[styles.button, { borderWidth: 1, borderColor: 'red' }]} onPress={deleteAssignment}>
                         <Text style={{ color: 'red', fontWeight: '500' }}>Delete Assignment</Text>
                     </Pressable>
                     <Pressable style={[styles.button, { backgroundColor: "#2F85FE" }]} onPress={handleSubmissionsReroute}>

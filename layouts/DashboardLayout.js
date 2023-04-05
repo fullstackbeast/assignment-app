@@ -1,12 +1,26 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Image, Pressable, StyleSheet } from 'react-native'
 import { ScrollView, Text, View } from 'react-native'
 import Font from 'react-native-vector-icons/Ionicons'
 import { GlobalContext } from '../GlobalContext';
+import useCompare from '../hooks/useCompare';
+import areIntervalsOverlappingWithOptions from 'date-fns/esm/fp/areIntervalsOverlappingWithOptions/index.js';
 
 export default function DashboardLayout({ navigation, pageTitle, children }) {
 
-    const { currentUser, setCurrentUser } = useContext(GlobalContext);
+    const { currentUser, assignments } = useContext(GlobalContext);
+
+    // const assignmentHasChanged = useCompare(assignments);
+
+    // useEffect(() => {
+
+    //     if (assignmentHasChanged) {
+
+    //         console.log("assignment ttt changed", assignments)
+    //     }
+
+
+    // }, [assignments])
 
     const logOut = () => {
         navigation.navigate('Login')
@@ -87,6 +101,14 @@ export default function DashboardLayout({ navigation, pageTitle, children }) {
                                 color='#000'
                             />
                             <Text>Home</Text>
+                        </Pressable>
+                        <Pressable style={styles.navItems} onPress={() => navigation.navigate('CreateAssignment')}>
+                            <Font
+                                name='add-outline'
+                                size={20}
+                                color='#000'
+                            />
+                            <Text>Create Assigment</Text>
                         </Pressable>
 
                         <Pressable style={styles.navItems} onPress={() => navigation.navigate('AllAssignments')}>

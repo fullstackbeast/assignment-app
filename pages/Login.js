@@ -12,6 +12,10 @@ export default function Login({ navigation }) {
 
     const handleLogin = () => {
 
+        navigation.navigate('LecturerDashboard');
+        return;
+
+
         let user = USERS.find(u => u.email.toLowerCase() == email.toLowerCase() && u.password.toLowerCase() == password.toLowerCase());
 
 

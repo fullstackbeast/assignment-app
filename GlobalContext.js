@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { getData } from './AsyncStore';
 
 const GlobalContext = React.createContext()
 
@@ -8,11 +9,31 @@ const GlobalProvider = ({ children }) => {
     const [modalChild, setModalChild] = useState(null);
     // const [currentUser, setCurrentUser] = useState({
     //     id: 1,
-    //     firstName: "Toyyib",
-    //     lastName: "Omolola",
-    //     role: "lecturer"
+    //     firstName: "Ololade",
+    //     lastName: "Asake",
+    //     role: "student",
+    //     email: "student@assignment.com",
+    //     password: "password"
     // });
-    const [currentUser, setCurrentUser] = useState(null);
+
+    const [currentUser, setCurrentUser] = useState({
+        id: 1,
+        firstName: "Abisola",
+        lastName: "Alake",
+        role: "lecturer",
+        email: "teacher@assignment.com",
+        password: "password"
+    });
+
+    const [assignments, setAssignments] = useState([]);
+
+    useEffect(()=>{
+
+        getData('assignment').then(r => {
+            if(r) setAssignments(r);
+        })
+
+    }, [])
 
 
     const values = {
@@ -21,9 +42,10 @@ const GlobalProvider = ({ children }) => {
         modalChild,
         setModalChild,
         currentUser,
-        setCurrentUser
+        setCurrentUser,
+        assignments,
+        setAssignments
     }
-
 
     return (
         <GlobalContext.Provider value={values}>

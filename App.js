@@ -12,6 +12,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LecturerDashboard from './pages/LecturerDashboard';
 import AllAssignments from './pages/AllAssignments';
 import Submissions from './pages/Submissions';
+import CreateAssignment from './pages/CreateAssignment';
 
 const Stack = createNativeStackNavigator();
 
@@ -31,6 +32,7 @@ export default function App() {
           <Stack.Screen name="Active" component={Active} />
           <Stack.Screen name="Missed" component={Missed} />
           <Stack.Screen name="Submissions" component={Submissions} />
+          <Stack.Screen name="CreateAssignment" component={CreateAssignment} />
         </Stack.Navigator>
       </NavigationContainer>
     </GlobalProvider>
